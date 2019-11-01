@@ -43,9 +43,6 @@ flow:
 extensions:
   graph:
     steps:
-      kill_open_apps:
-        x: 370
-        'y': 70
       list_iterator:
         x: 142
         'y': 122
@@ -53,6 +50,9 @@ extensions:
           3e32a814-be55-00cb-5464-8eeb9fb70453:
             targetId: e75c884f-aa70-8a5e-b002-60cbf9ba9a46
             port: NO_MORE
+      kill_open_apps:
+        x: 370
+        'y': 70
     results:
       SUCCESS:
         e75c884f-aa70-8a5e-b002-60cbf9ba9a46:
