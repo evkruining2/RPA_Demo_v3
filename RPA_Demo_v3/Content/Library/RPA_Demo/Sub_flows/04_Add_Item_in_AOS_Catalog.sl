@@ -7,9 +7,9 @@ flow:
     - itemDesc
     - itemPrice
   workflow:
-    - Add_item_to_AOS_catalog:
+    - Add_item_to_AOS_catalog_1:
         do:
-          Demo_v2.Sub_Flows.Add_item_to_AOS_catalog:
+          RPA_Demo.Sub_flows.Add_item_to_AOS_catalog:
             - itemName: '${itemName}'
             - itemNumber: '${itemNumber}'
             - itemDesc: '${itemDesc}'
@@ -42,12 +42,9 @@ flow:
 extensions:
   graph:
     steps:
-      Add_item_to_AOS_catalog:
-        x: 69
-        'y': 80
-      04_Run_Report_Phase_4:
-        x: 264
-        'y': 87
+      Add_item_to_AOS_catalog_1:
+        x: 80
+        'y': 91
       sleep:
         x: 434
         'y': 82
@@ -55,6 +52,9 @@ extensions:
           18a272a2-9c7a-e36a-023f-89c8916f2c3c:
             targetId: d42b5b36-4522-4e47-9cae-5b653f947c4b
             port: SUCCESS
+      04_Run_Report_Phase_4:
+        x: 264
+        'y': 87
     results:
       SUCCESS:
         d42b5b36-4522-4e47-9cae-5b653f947c4b:
