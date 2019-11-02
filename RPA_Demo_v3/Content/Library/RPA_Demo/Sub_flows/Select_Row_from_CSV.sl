@@ -31,7 +31,7 @@ flow:
             - result_string: "${result_string.replace('[' , '')}"
         navigate:
           - HAS_MORE: Set_Flow_variables_1
-          - NO_MORE: SUCCESS
+          - NO_MORE: Set_Flow_variables_1
           - FAILURE: on_failure
     - Set_Flow_variables_1:
         do:
@@ -43,7 +43,15 @@ flow:
           - c: '${eval(c)}'
           - d: '${eval(d)}'
         navigate:
-          - SUCCESS: SUCCESS
+          - SUCCESS: list_iterator_1
+    - list_iterator_1:
+        do:
+          io.cloudslang.base.lists.list_iterator:
+            - list: '1,2'
+        navigate:
+          - HAS_MORE: list_iterator_1
+          - NO_MORE: SUCCESS
+          - FAILURE: on_failure
   outputs:
     - itemNumber: '${a}'
     - itemName: '${b}'
@@ -56,33 +64,23 @@ extensions:
   graph:
     steps:
       Read_CSV_1:
-        x: 61
-        'y': 102
+        x: 48
+        'y': 81
       list_iterator:
-        x: 210
-        'y': 92
+        x: 200
+        'y': 76
+      Set_Flow_variables_1:
+        x: 371
+        'y': 75
+      list_iterator_1:
+        x: 516
+        'y': 73
         navigate:
-          9b4614bf-7221-8f78-b720-11614aa61882:
+          f55f7130-c02c-1267-c206-f1b37f38aca8:
             targetId: 59fd7b43-fe99-b517-d7c9-0533de7176c3
             port: NO_MORE
-            vertices:
-              - x: 375
-                'y': 59
-              - x: 417
-                'y': 60
-              - x: 444
-                'y': 64
-              - x: 452
-                'y': 56
-      Set_Flow_variables_1:
-        x: 374
-        'y': 112
-        navigate:
-          7a659280-5a71-7a8f-fb70-97a5ea9275f4:
-            targetId: 59fd7b43-fe99-b517-d7c9-0533de7176c3
-            port: SUCCESS
     results:
       SUCCESS:
         59fd7b43-fe99-b517-d7c9-0533de7176c3:
-          x: 556
-          'y': 93
+          x: 657
+          'y': 162
