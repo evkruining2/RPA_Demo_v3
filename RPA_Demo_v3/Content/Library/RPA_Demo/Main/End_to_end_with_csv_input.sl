@@ -15,7 +15,6 @@ flow:
           - itemDesc
           - itemPrice
         navigate:
-          - FAILURE: on_failure
           - SUCCESS: Process_Flow
     - Process_Flow:
         do:
