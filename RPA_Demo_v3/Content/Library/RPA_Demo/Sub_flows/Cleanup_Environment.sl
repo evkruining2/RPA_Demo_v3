@@ -1,3 +1,21 @@
+########################################################################################################################
+#!!
+#! @description: This flow will kill the running applications, listed as process names in the input, running on a target windows system. 
+#!               
+#!               In order to execute properly, windows remote management needs to be configured properly in the target. To do so, run these power shell commands on the target once:
+#!               
+#!               winrm quickconfig
+#!               winrm set winrm/config/service/auth '@{Basic="true"}'
+#!               winrm set winrm/config/service '@{AllowUnencrypted="true"}'
+#!               winrm set winrm/config/client '@{AllowUnencrypted="true"}'
+#!                
+#!               to test settings: 
+#!                
+#!               winrm identify -r:http://localhost:5985 -auth:basic -u:administrator -p:<admin password> -encoding:utf-8
+#!                
+#!               
+#!!#
+########################################################################################################################
 namespace: RPA_Demo.Sub_flows
 flow:
   name: Cleanup_Environment
@@ -5,7 +23,7 @@ flow:
     - processNames: 'RumbaPage.exe, Firefox.exe,saplogon.exe,AdvantageShopAdministrator.exe'
     - WinAdminUser: administrator
     - WinAdminPassword:
-        default: 'go.MF.admin123!'
+        default: admin@123
         private: false
         sensitive: true
   workflow:

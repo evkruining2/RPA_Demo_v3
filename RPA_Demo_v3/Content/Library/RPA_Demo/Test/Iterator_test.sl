@@ -5,10 +5,13 @@ flow:
     - Select_Row_from_CSV:
         do:
           RPA_Demo.Sub_flows.Select_Row_from_CSV:
-            - rowNumer: '6'
-        publish: []
+            - rowNumer: '1'
+        publish:
+          - itemNumber
+          - itemName
+          - itemDesc
+          - itemPrice
         navigate:
-          - FAILURE: on_failure
           - SUCCESS: Cleanup_Environment
     - Cleanup_Environment:
         do:

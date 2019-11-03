@@ -1,6 +1,8 @@
 ########################################################################################################################
 #!!
-#! @input rowNumer: Set the row number in the CSV file to process
+#! @description: Selects a row from a 4-column csv file and creates 4 flow variables as a result. The row-count starts a 0, so row 0 is the first line in the file.
+#!
+#! @input rowNumer: Set the row number in the CSV file to process. Count starts a 0
 #!!#
 ########################################################################################################################
 namespace: RPA_Demo.Sub_flows
@@ -10,77 +12,48 @@ flow:
     - rowNumer
     - csvfile: "C:\\Enablement\\Hackton\\data\\laptops.csv"
   workflow:
-    - Read_CSV_1:
+    - Read_line_from_file:
         do:
-          RPA_Demo.Tools.Read_CSV:
-            - csvfile: '${csvfile}'
+          RPA_Demo.Tools.Read_line_from_file:
+            - inFile: '${csvfile}'
+            - lineNumber: '${rowNumer}'
         publish:
-          - content
+          - line
         navigate:
-          - SUCCESS: list_iterator
-    - list_iterator:
-        loop:
-          for: 'n in range(0,int(rowNumer))'
-          do:
-            io.cloudslang.base.lists.list_iterator:
-              - list: '${content}'
-              - separator: ']'
-          break:
-            - FAILURE
-          publish:
-            - result_string: "${result_string.replace('[' , '')}"
-        navigate:
-          - HAS_MORE: Set_Flow_variables_1
-          - NO_MORE: Set_Flow_variables_1
-          - FAILURE: on_failure
-    - Set_Flow_variables_1:
+          - SUCCESS: Set_Flow_variables
+    - Set_Flow_variables:
         do:
           RPA_Demo.Tools.Set_Flow_variables:
-            - line: "${result_string.strip(',')}"
+            - line: "${line.strip(',')}"
         publish:
-          - a: '${eval(a)}'
-          - b: '${eval(b)}'
-          - c: '${eval(c)}'
-          - d: '${eval(d)}'
+          - itemName: '${b}'
+          - itemDesc: '${c}'
+          - itemPrice: '${d}'
+          - itemNumber: '${a}'
         navigate:
-          - SUCCESS: list_iterator_1
-    - list_iterator_1:
-        do:
-          io.cloudslang.base.lists.list_iterator:
-            - list: '1,2'
-        navigate:
-          - HAS_MORE: list_iterator_1
-          - NO_MORE: SUCCESS
-          - FAILURE: on_failure
+          - SUCCESS: SUCCESS
   outputs:
-    - itemNumber: '${a}'
-    - itemName: '${b}'
-    - itemDesc: '${c}'
-    - itemPrice: '${d}'
+    - itemNumber: '${itemNumber}'
+    - itemName: '${itemName}'
+    - itemDesc: '${itemDesc}'
+    - itemPrice: '${itemPrice}'
   results:
-    - FAILURE
     - SUCCESS
 extensions:
   graph:
     steps:
-      Read_CSV_1:
-        x: 48
-        'y': 81
-      list_iterator:
-        x: 200
-        'y': 76
-      Set_Flow_variables_1:
-        x: 371
-        'y': 75
-      list_iterator_1:
-        x: 516
-        'y': 73
+      Read_line_from_file:
+        x: 86
+        'y': 95
+      Set_Flow_variables:
+        x: 272
+        'y': 94
         navigate:
-          f55f7130-c02c-1267-c206-f1b37f38aca8:
+          33379505-a510-8983-21e4-a3e6d3a1e77d:
             targetId: 59fd7b43-fe99-b517-d7c9-0533de7176c3
-            port: NO_MORE
+            port: SUCCESS
     results:
       SUCCESS:
         59fd7b43-fe99-b517-d7c9-0533de7176c3:
-          x: 657
-          'y': 162
+          x: 469
+          'y': 89
