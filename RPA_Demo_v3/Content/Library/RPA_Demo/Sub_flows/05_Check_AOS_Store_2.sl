@@ -1,10 +1,10 @@
 namespace: RPA_Demo.Sub_flows
 operation:
-  name: 05_Check_AOS_Store
+  name: 05_Check_AOS_Store_2
   inputs:
     - itemName
   sequential_action:
-    gav: 'com.microfocus.seq:RPA_Demo.Sub_flows.05_Check_AOS_Store:1.0.30'
+    gav: 'com.microfocus.seq:RPA_Demo.Sub_flows.05_Check_AOS_Store_2:1.0.0'
     skills:
       - Java
       - SAP
@@ -35,27 +35,27 @@ operation:
         active: true
         address: 'http://localhost:8080'
         browser: CHROME
-        close_on_exit: false
+        close_on_exit: true
     steps:
       - step:
-          id: '1'
+          id: '2'
           object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").WebElement("menuSearch")'
           action: Click
-          snapshot: ".\\Snapshots\\ssf1.html"
+          snapshot: ".\\Snapshots\\ssf2.html"
           highlight_id: '10000000'
       - step:
-          id: '2'
+          id: '3'
           object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").WebEdit("Search AdvantageOnlineShopping")'
           action: Set
-          default_args: '"WOWBIUPA"'
-          snapshot: ".\\Snapshots\\ssf2.html"
+          default_args: '"G1(ES"'
+          snapshot: ".\\Snapshots\\ssf3.html"
           highlight_id: '10000000'
           args: 'Parameter("itemName")'
       - step:
-          id: '3'
-          object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").Image("fetchImage?image_id=custom_ima")'
+          id: '4'
+          object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").Image("fetchImage?image_id=1250")'
           action: Click
-          snapshot: ".\\Snapshots\\ssf3.html"
+          snapshot: ".\\Snapshots\\ssf4.html"
           highlight_id: '10000000'
   outputs:
     - return_result: '${return_result}'
@@ -111,6 +111,149 @@ object_repository:
                           - acc_name
                       algorithm: Mercury.TolerantPriority
                       active: true
+                    name: TabletsCategory
+                    child_objects: []
+                    properties:
+                      - property:
+                          value:
+                            value: '569'
+                            regular_expression: false
+                          name: width
+                          hidden: true
+                          read_only: true
+                          type: NUMBER
+                      - property:
+                          value:
+                            value: '-1'
+                            regular_expression: false
+                          name: visible
+                          hidden: true
+                          read_only: true
+                          type: BOOL
+                      - property:
+                          value:
+                            value: '65'
+                            regular_expression: false
+                          name: view_y
+                          hidden: true
+                          read_only: true
+                          type: NUMBER
+                      - property:
+                          value:
+                            value: '570'
+                            regular_expression: false
+                          name: view_x
+                          hidden: true
+                          read_only: true
+                          type: NUMBER
+                      - property:
+                          value:
+                            value: WebElement
+                            regular_expression: false
+                          name: micclass
+                          hidden: true
+                          read_only: true
+                          type: STRING
+                      - property:
+                          value:
+                            value: TABLETS Shop Now
+                            regular_expression: false
+                          name: innertext
+                          hidden: false
+                          read_only: false
+                          type: STRING
+                      - property:
+                          value:
+                            value: DIV
+                            regular_expression: false
+                          name: html tag
+                          hidden: false
+                          read_only: false
+                          type: STRING
+                      - property:
+                          value:
+                            value: tabletsImg
+                            regular_expression: false
+                          name: html id
+                          hidden: true
+                          read_only: true
+                          type: STRING
+                      - property:
+                          value:
+                            value: '368'
+                            regular_expression: false
+                          name: height
+                          hidden: true
+                          read_only: true
+                          type: NUMBER
+                      - property:
+                          value:
+                            value: categoryCell
+                            regular_expression: false
+                          name: class
+                          hidden: false
+                          read_only: false
+                          type: STRING
+                      - property:
+                          value:
+                            value: TabletsCategory
+                            regular_expression: false
+                          name: acc_name
+                          hidden: true
+                          read_only: true
+                          type: STRING
+                      - property:
+                          value:
+                            value: '145'
+                            regular_expression: false
+                          name: abs_y
+                          hidden: true
+                          read_only: true
+                          type: NUMBER
+                      - property:
+                          value:
+                            value: '1431'
+                            regular_expression: false
+                          name: abs_x
+                          hidden: true
+                          read_only: true
+                          type: NUMBER
+                      - property:
+                          value:
+                            value: '//DIV[@id="tabletsImg"]'
+                            regular_expression: false
+                          name: _xpath
+                          hidden: true
+                          read_only: true
+                          type: STRING
+                    comments: ''
+                    custom_replay: ''
+                    class: WebElement
+                    visual_relations: ''
+                    last_update_time: 'Friday, 8 November 2019 16:03:47'
+                    basic_identification:
+                      property_ref:
+                        - micclass
+                        - innertext
+                        - html tag
+                        - class
+                        - _xpath
+                      ordinal_identifier: ''
+                - object:
+                    smart_identification:
+                      base_filter:
+                        property_ref:
+                          - micclass
+                          - html tag
+                      optional_filter:
+                        property_ref:
+                          - html id
+                          - class
+                          - innertext
+                          - visible
+                          - acc_name
+                      algorithm: Mercury.TolerantPriority
+                      active: true
                     name: menuSearch
                     child_objects: []
                     properties:
@@ -132,7 +275,7 @@ object_repository:
                           type: BOOL
                       - property:
                           value:
-                            value: '20'
+                            value: '21'
                             regular_expression: false
                           name: view_y
                           hidden: true
@@ -140,7 +283,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '1158'
+                            value: '1469'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -204,7 +347,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '99'
+                            value: '101'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -212,7 +355,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '1227'
+                            value: '2330'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -230,7 +373,7 @@ object_repository:
                     custom_replay: ''
                     class: WebElement
                     visual_relations: ''
-                    last_update_time: 'Thursday, October 31, 2019 8:39:44 AM'
+                    last_update_time: 'Friday, 8 November 2019 16:03:47'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -288,7 +431,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '10'
+                            value: '11'
                             regular_expression: false
                           name: view_y
                           hidden: true
@@ -296,7 +439,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '500'
+                            value: '811'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -360,7 +503,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '36'
+                            value: '37'
                             regular_expression: false
                           name: height
                           hidden: true
@@ -376,7 +519,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: roboto-regular ng-untouched ng-valid ng-dirty ng-valid-parse
+                            value: roboto-regular ng-valid ng-touched ng-dirty ng-valid-parse
                             regular_expression: false
                           name: class
                           hidden: true
@@ -392,7 +535,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '89'
+                            value: '91'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -400,7 +543,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '569'
+                            value: '1672'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -410,7 +553,7 @@ object_repository:
                     custom_replay: ''
                     class: WebEdit
                     visual_relations: ''
-                    last_update_time: 'Thursday, October 31, 2019 8:39:44 AM'
+                    last_update_time: 'Friday, 8 November 2019 16:03:47'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -436,7 +579,7 @@ object_repository:
                           - visible
                       algorithm: Mercury.TolerantPriority
                       active: true
-                    name: fetchImage?image_id=custom_ima
+                    name: fetchImage?image_id=1250
                     child_objects: []
                     properties:
                       - property:
@@ -449,7 +592,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '//DIV[@id="output"]/DIV/DIV/A[normalize-space()="WOWBIUPA $1,480.43"]/IMG[1]'
+                            value: '//DIV[@id="output"]/DIV[1]/DIV[2]/A[2]/IMG[1]'
                             regular_expression: false
                           name: _xpath
                           hidden: true
@@ -473,7 +616,7 @@ object_repository:
                           type: BOOL
                       - property:
                           value:
-                            value: '127'
+                            value: '128'
                             regular_expression: false
                           name: view_y
                           hidden: true
@@ -481,7 +624,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '631'
+                            value: '943'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -521,7 +664,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '99'
+                            value: '114'
                             regular_expression: false
                           name: height
                           hidden: true
@@ -529,7 +672,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: fetchImage?image_id=custom_image_admin_a9f66a3d-bdb5-412a-81c7-a9433af2d434
+                            value: fetchImage?image_id=1250
                             regular_expression: false
                           name: file name
                           hidden: true
@@ -553,7 +696,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '206'
+                            value: '208'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -561,7 +704,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '700'
+                            value: '1804'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -571,7 +714,7 @@ object_repository:
                     custom_replay: ''
                     class: Image
                     visual_relations: ''
-                    last_update_time: 'Thursday, October 31, 2019 8:39:44 AM'
+                    last_update_time: 'Friday, 8 November 2019 16:03:47'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -649,7 +792,7 @@ object_repository:
                     type: STRING
                 - property:
                     value:
-                      value: '10003'
+                      value: '10001'
                       regular_expression: false
                     name: index
                     hidden: true
@@ -683,7 +826,7 @@ object_repository:
               custom_replay: ''
               class: Page
               visual_relations: ''
-              last_update_time: 'Thursday, October 31, 2019 8:39:44 AM'
+              last_update_time: 'Friday, 8 November 2019 16:03:47'
               basic_identification:
                 property_ref:
                   - micclass
@@ -757,12 +900,12 @@ object_repository:
         custom_replay: ''
         class: Browser
         visual_relations: ''
-        last_update_time: 'Thursday, October 31, 2019 8:39:44 AM'
+        last_update_time: 'Friday, 8 November 2019 16:03:47'
         basic_identification:
           property_ref:
             - micclass
           ordinal_identifier:
-            value: 1
+            value: 0
             type: creationtime
   check_points_and_outputs: []
   parameters: []
