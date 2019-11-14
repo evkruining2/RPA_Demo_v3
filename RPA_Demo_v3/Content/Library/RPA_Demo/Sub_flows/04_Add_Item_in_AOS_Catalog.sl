@@ -6,6 +6,7 @@ flow:
     - itemNumber
     - itemDesc
     - itemPrice
+    - sleepTimer: '1'
   workflow:
     - Add_item_to_AOS_catalog_1:
         do:
@@ -24,7 +25,7 @@ flow:
     - sleep:
         do:
           io.cloudslang.base.utils.sleep:
-            - seconds: '5'
+            - seconds: '${sleepTimer}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure

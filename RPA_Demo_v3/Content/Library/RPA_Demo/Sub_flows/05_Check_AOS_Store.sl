@@ -1,10 +1,10 @@
 namespace: RPA_Demo.Sub_flows
 operation:
-  name: 05_Check_AOS_Store_2
+  name: 05_Check_AOS_Store
   inputs:
     - itemName
   sequential_action:
-    gav: 'com.microfocus.seq:RPA_Demo.Sub_flows.05_Check_AOS_Store_2:1.0.0'
+    gav: 'com.microfocus.seq:RPA_Demo.Sub_flows.05_Check_AOS_Store:1.0.0'
     skills:
       - Java
       - SAP
@@ -35,7 +35,7 @@ operation:
         active: true
         address: 'http://localhost:8080'
         browser: CHROME
-        close_on_exit: true
+        close_on_exit: false
     steps:
       - step:
           id: '2'
@@ -47,13 +47,13 @@ operation:
           id: '3'
           object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").WebEdit("Search AdvantageOnlineShopping")'
           action: Set
-          default_args: '"G1(ES"'
+          default_args: '"11t"'
           snapshot: ".\\Snapshots\\ssf3.html"
           highlight_id: '10000000'
           args: 'Parameter("itemName")'
       - step:
           id: '4'
-          object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").Image("fetchImage?image_id=1250")'
+          object_path: 'Browser("Advantage Shopping").Page("Advantage Shopping").Image("fetchImage?image_id=11100")'
           action: Click
           snapshot: ".\\Snapshots\\ssf4.html"
           highlight_id: '10000000'
@@ -116,7 +116,7 @@ object_repository:
                     properties:
                       - property:
                           value:
-                            value: '569'
+                            value: '424'
                             regular_expression: false
                           name: width
                           hidden: true
@@ -140,7 +140,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '570'
+                            value: '424'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -180,7 +180,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '368'
+                            value: '274'
                             regular_expression: false
                           name: height
                           hidden: true
@@ -204,7 +204,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '145'
+                            value: '177'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -212,7 +212,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '1431'
+                            value: '1072'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -230,7 +230,7 @@ object_repository:
                     custom_replay: ''
                     class: WebElement
                     visual_relations: ''
-                    last_update_time: 'Friday, 8 November 2019 16:03:47'
+                    last_update_time: 'Saturday, 9 November 2019 21:00:39'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -283,7 +283,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '1469'
+                            value: '1042'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -347,7 +347,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '101'
+                            value: '133'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -355,7 +355,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '2330'
+                            value: '1690'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -373,7 +373,7 @@ object_repository:
                     custom_replay: ''
                     class: WebElement
                     visual_relations: ''
-                    last_update_time: 'Friday, 8 November 2019 16:03:47'
+                    last_update_time: 'Saturday, 9 November 2019 21:00:39'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -439,7 +439,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '811'
+                            value: '384'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -535,7 +535,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '91'
+                            value: '123'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -543,7 +543,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '1672'
+                            value: '1032'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -553,7 +553,7 @@ object_repository:
                     custom_replay: ''
                     class: WebEdit
                     visual_relations: ''
-                    last_update_time: 'Friday, 8 November 2019 16:03:47'
+                    last_update_time: 'Saturday, 9 November 2019 21:00:39'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -579,7 +579,7 @@ object_repository:
                           - visible
                       algorithm: Mercury.TolerantPriority
                       active: true
-                    name: fetchImage?image_id=1250
+                    name: fetchImage?image_id=11100
                     child_objects: []
                     properties:
                       - property:
@@ -624,7 +624,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '943'
+                            value: '516'
                             regular_expression: false
                           name: view_x
                           hidden: true
@@ -672,7 +672,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: fetchImage?image_id=1250
+                            value: fetchImage?image_id=11100
                             regular_expression: false
                           name: file name
                           hidden: true
@@ -696,7 +696,7 @@ object_repository:
                           type: STRING
                       - property:
                           value:
-                            value: '208'
+                            value: '240'
                             regular_expression: false
                           name: abs_y
                           hidden: true
@@ -704,7 +704,7 @@ object_repository:
                           type: NUMBER
                       - property:
                           value:
-                            value: '1804'
+                            value: '1164'
                             regular_expression: false
                           name: abs_x
                           hidden: true
@@ -714,7 +714,7 @@ object_repository:
                     custom_replay: ''
                     class: Image
                     visual_relations: ''
-                    last_update_time: 'Friday, 8 November 2019 16:03:47'
+                    last_update_time: 'Saturday, 9 November 2019 21:00:39'
                     basic_identification:
                       property_ref:
                         - micclass
@@ -826,7 +826,7 @@ object_repository:
               custom_replay: ''
               class: Page
               visual_relations: ''
-              last_update_time: 'Friday, 8 November 2019 16:03:47'
+              last_update_time: 'Saturday, 9 November 2019 21:00:39'
               basic_identification:
                 property_ref:
                   - micclass
@@ -900,12 +900,12 @@ object_repository:
         custom_replay: ''
         class: Browser
         visual_relations: ''
-        last_update_time: 'Friday, 8 November 2019 16:03:47'
+        last_update_time: 'Saturday, 9 November 2019 21:00:39'
         basic_identification:
           property_ref:
             - micclass
           ordinal_identifier:
-            value: 0
+            value: 1
             type: creationtime
   check_points_and_outputs: []
   parameters: []

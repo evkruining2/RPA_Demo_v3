@@ -7,7 +7,7 @@ namespace: RPA_Demo.Tools
 flow:
   name: Create_Dataset_CSV
   inputs:
-    - path: "C:\\Enablement\\Hackton\\data\\"
+    - path: "c:\\Demo\\Data\\"
     - filename: laptops.csv
   workflow:
     - write_to_file:

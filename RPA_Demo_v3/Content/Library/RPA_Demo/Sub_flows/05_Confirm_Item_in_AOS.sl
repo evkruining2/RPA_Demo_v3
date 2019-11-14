@@ -4,10 +4,11 @@ flow:
   inputs:
     - itemName
     - START
+    - sleepTimer: '1'
   workflow:
-    - 05_Check_AOS_Store_2:
+    - 05_Check_AOS_Store:
         do:
-          RPA_Demo.Sub_flows.05_Check_AOS_Store_2:
+          RPA_Demo.Sub_flows.05_Check_AOS_Store:
             - itemName: '${itemName}'
         navigate:
           - SUCCESS: sleep
@@ -16,7 +17,7 @@ flow:
     - sleep:
         do:
           io.cloudslang.base.utils.sleep:
-            - seconds: '10'
+            - seconds: '${sleepTimer}'
         navigate:
           - SUCCESS: End_time_1
           - FAILURE: on_failure
@@ -55,9 +56,9 @@ flow:
 extensions:
   graph:
     steps:
-      05_Check_AOS_Store_2:
-        x: 146
-        'y': 166
+      05_Check_AOS_Store:
+        x: 147
+        'y': 175
       sleep:
         x: 307
         'y': 80

@@ -2,7 +2,7 @@ namespace: RPA_Demo.Test
 flow:
   name: Read_line_in_file
   inputs:
-    - fileName: "c:\\Enablement\\hackton\\data\\laptops.csv"
+    - fileName: "c:\\Demo\\Data\\laptops.csv"
     - lineNumber: '2'
   workflow:
     - Read_line_from_file:
