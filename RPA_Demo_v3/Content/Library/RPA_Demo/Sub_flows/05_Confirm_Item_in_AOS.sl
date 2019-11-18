@@ -5,9 +5,9 @@ flow:
     - itemName
     - START
   workflow:
-    - 05_Check_AOS_Store_2:
+    - 05_Check_AOS_Store:
         do:
-          RPA_Demo.Sub_flows.05_Check_AOS_Store_2:
+          RPA_Demo.Sub_flows.05_Check_AOS_Store:
             - itemName: '${itemName}'
         navigate:
           - SUCCESS: sleep
@@ -55,9 +55,9 @@ flow:
 extensions:
   graph:
     steps:
-      05_Check_AOS_Store_2:
-        x: 146
-        'y': 166
+      05_Check_AOS_Store:
+        x: 152
+        'y': 137
       sleep:
         x: 307
         'y': 80
