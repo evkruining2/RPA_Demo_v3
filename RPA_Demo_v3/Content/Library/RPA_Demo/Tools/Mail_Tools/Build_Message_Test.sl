@@ -3,7 +3,7 @@ flow:
   name: Build_Message_Test
   inputs:
     - Mailto: erwin@example.com
-    - Mailfrom: rpa.example.com
+    - Mailfrom: rpa@example.com
     - Mailserver: mail.example.com
   workflow:
     - get_time:
@@ -74,9 +74,6 @@ extensions:
       get_time:
         x: 126
         'y': 101
-      Set_Mail_Footer:
-        x: 505
-        'y': 274
       get_time_1:
         x: 318
         'y': 105
@@ -89,6 +86,9 @@ extensions:
       Set_Mail_Header:
         x: 115
         'y': 268
+      Set_Mail_Footer:
+        x: 505
+        'y': 274
       Send_Mail:
         x: 686
         'y': 268

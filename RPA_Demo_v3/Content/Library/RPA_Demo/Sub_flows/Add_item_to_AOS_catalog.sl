@@ -10,7 +10,7 @@ flow:
     - http_client_post:
         do:
           io.cloudslang.base.http.http_client_post:
-            - url: 'http://localhost:8080/catalog/api/v1/products'
+            - url: 'http://aos.example.com:8080/catalog/api/v1/products'
             - auth_type: basic
             - username: admin
             - password:
