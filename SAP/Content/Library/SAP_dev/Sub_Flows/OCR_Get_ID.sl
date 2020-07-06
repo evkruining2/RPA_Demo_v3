@@ -51,8 +51,8 @@ extensions:
         x: 65
         'y': 99
       extract_text_from_image:
-        x: 227
-        'y': 99
+        x: 228
+        'y': 98
       json_path_query:
         x: 404
         'y': 100
