@@ -19,13 +19,6 @@ flow:
     - extra_arguments:
         required: false
   workflow:
-    - is_null:
-        do:
-          io.cloudslang.base.utils.is_null:
-            - variable: '${extra_arguments}'
-        navigate:
-          - IS_NULL: SUCCESS
-          - IS_NOT_NULL: ssh_command
     - ssh_command:
         do:
           io.cloudslang.base.ssh.ssh_command:
@@ -37,47 +30,31 @@ flow:
                 sensitive: true
         publish:
           - output: '${return_result}'
+          - command_return_code
         navigate:
-          - SUCCESS: Is_any_host_unreachable
+          - SUCCESS: check_command_return_code
           - FAILURE: on_failure
-    - Is_any_host_unreachable:
-        do:
-          io.cloudslang.base.strings.string_occurrence_counter:
-            - string_in_which_to_search: '${output}'
-            - string_to_find: UNREACH
-        publish:
-          - return_result
-        navigate:
-          - SUCCESS: Count_unreachables
-          - FAILURE: Count_unreachables
-    - Count_unreachables:
+    - check_command_return_code:
         do:
           io.cloudslang.base.math.compare_numbers:
-            - value1: '${return_result}'
+            - value1: '${command_return_code}'
             - value2: '0'
         navigate:
-          - GREATER_THAN: FAILURE
-          - EQUALS: Did_any_host_fail
-          - LESS_THAN: Did_any_host_fail
-    - Did_any_host_fail:
-        do:
-          io.cloudslang.base.strings.string_occurrence_counter:
-            - string_in_which_to_search: '${output}'
-            - string_to_find: FAIL
-        publish:
-          - return_result
-        navigate:
-          - SUCCESS: Count_failures
-          - FAILURE: Count_failures
-    - Count_failures:
-        do:
-          io.cloudslang.base.math.compare_numbers:
-            - value1: '${return_result}'
-            - value2: '0'
-        navigate:
-          - GREATER_THAN: FAILURE
+          - GREATER_THAN: something_went_wrong
           - EQUALS: SUCCESS
-          - LESS_THAN: SUCCESS
+          - LESS_THAN: something_went_wrong
+    - something_went_wrong:
+        do:
+          io.cloudslang.base.utils.do_nothing:
+            - error_message: '${output}'
+        publish:
+          - error_message
+        navigate:
+          - SUCCESS: FAILURE
+          - FAILURE: on_failure
+  outputs:
+    - error_message: '${error_message}'
+    - stdout: '${output}'
   results:
     - SUCCESS
     - FAILURE
@@ -86,46 +63,27 @@ extensions:
     steps:
       ssh_command:
         x: 70
-        'y': 86
-      Count_unreachables:
-        x: 80
-        'y': 438
+        'y': 85
+      check_command_return_code:
+        x: 75
+        'y': 252
         navigate:
-          c44565d9-a940-a79c-f625-28596b7ca491:
-            targetId: dc3137f6-413d-6abc-141a-14d48d141f2d
-            port: GREATER_THAN
-      Did_any_host_fail:
-        x: 253
-        'y': 253
-      Is_any_host_unreachable:
-        x: 77
-        'y': 256
-      Count_failures:
-        x: 246
-        'y': 441
-        navigate:
-          13ef2f9c-3122-8ad0-1b66-3cb720172ec0:
+          390a904f-acf3-8745-17a7-8e17774c9442:
             targetId: c03bc0a5-a290-a627-f56c-bc434ca4c253
             port: EQUALS
-          9f0ec4f4-bb35-3f7d-baae-631f2a9b2f02:
-            targetId: dc3137f6-413d-6abc-141a-14d48d141f2d
-            port: GREATER_THAN
-          e3eb3654-2b91-d9c0-f895-51fe304d1bd4:
-            targetId: c03bc0a5-a290-a627-f56c-bc434ca4c253
-            port: LESS_THAN
-      is_null:
-        x: 728
-        'y': 211
+      something_went_wrong:
+        x: 76
+        'y': 418
         navigate:
-          73cfd8fc-665a-c1e9-8e81-e698b33efb9a:
-            targetId: c03bc0a5-a290-a627-f56c-bc434ca4c253
-            port: IS_NULL
+          6ec9b37e-fdb7-4fc1-a33c-2eb1a02be78e:
+            targetId: e87f8329-f2ad-d5a2-046c-cc583d282bfe
+            port: SUCCESS
     results:
       SUCCESS:
         c03bc0a5-a290-a627-f56c-bc434ca4c253:
-          x: 466
-          'y': 434
+          x: 317
+          'y': 251
       FAILURE:
-        dc3137f6-413d-6abc-141a-14d48d141f2d:
-          x: 173
-          'y': 624
+        e87f8329-f2ad-d5a2-046c-cc583d282bfe:
+          x: 311
+          'y': 412
