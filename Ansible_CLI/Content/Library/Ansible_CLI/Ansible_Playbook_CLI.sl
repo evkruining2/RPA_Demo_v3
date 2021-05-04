@@ -1,30 +1,26 @@
 ########################################################################################################################
 #!!
-#! @input pattern: host pattern
+#! @input playbook: Playbook(s)
 #! @input inventory: specify inventory host path or comma separated host list
 #! @input subset: further limit selected hosts to an additional pattern
-#! @input ansible_module: module name to execute (default=command)
-#! @input module_arguments: module arguments
+#! @input tags: only run plays and tasks tagged with these values
 #! @input extra_vars: set additional variables as key=value or YAML/JSON, if filename prepend with @
 #!!#
 ########################################################################################################################
-namespace: flows
+namespace: Ansible_CLI
 flow:
-  name: Ansible_CLI
+  name: Ansible_Playbook_CLI
   inputs:
     - ansible_host
     - ansible_username
     - ansible_password:
         sensitive: true
-    - pattern: all
+    - playbook: /var/lib/awx/projects/reboot.yaml
     - inventory:
         required: false
     - subset:
         required: false
-    - ansible_module:
-        default: ping
-        required: false
-    - module_arguments:
+    - tags:
         required: false
     - extra_vars:
         required: false
@@ -32,8 +28,8 @@ flow:
     - contruct_ssh_command:
         do:
           io.cloudslang.base.strings.append:
-            - origin_string: 'ansible '
-            - text: '${pattern}'
+            - origin_string: 'ansible-playbook '
+            - text: '${playbook}'
         publish:
           - ssh_command: '${new_string}'
         navigate:
@@ -94,7 +90,7 @@ flow:
           io.cloudslang.base.utils.is_null:
             - variable: '${inventory}'
         navigate:
-          - IS_NULL: check_module_var
+          - IS_NULL: check_tags
           - IS_NOT_NULL: append_inventory
     - append_inventory:
         do:
@@ -104,39 +100,23 @@ flow:
         publish:
           - ssh_command: '${new_string}'
         navigate:
-          - SUCCESS: check_module_var
-    - check_module_var:
-        do:
-          io.cloudslang.base.utils.is_null:
-            - variable: '${ansible_module}'
-        navigate:
-          - IS_NULL: check_module_args
-          - IS_NOT_NULL: append_module
-    - append_module:
+          - SUCCESS: check_tags
+    - append_tags:
         do:
           io.cloudslang.base.strings.append:
             - origin_string: '${ssh_command}'
-            - text: "${' -m '+ansible_module}"
-        publish:
-          - ssh_command: '${new_string}'
-        navigate:
-          - SUCCESS: check_module_args
-    - append_module_args:
-        do:
-          io.cloudslang.base.strings.append:
-            - origin_string: '${ssh_command}'
-            - text: "${' -a \"'+module_arguments+'\"'}"
+            - text: "${' -t \"'+tags+'\"'}"
         publish:
           - ssh_command: '${new_string}'
         navigate:
           - SUCCESS: check_extra_vars
-    - check_module_args:
+    - check_tags:
         do:
           io.cloudslang.base.utils.is_null:
-            - variable: '${module_arguments}'
+            - variable: '${tags}'
         navigate:
           - IS_NULL: check_extra_vars
-          - IS_NOT_NULL: append_module_args
+          - IS_NOT_NULL: append_tags
     - check_extra_vars:
         do:
           io.cloudslang.base.utils.is_null:
@@ -163,61 +143,55 @@ extensions:
   graph:
     steps:
       append_extra_vars:
-        x: 864
-        'y': 428
+        x: 677
+        'y': 429
       check_subset_var:
         x: 118
         'y': 242
       append_subset:
-        x: 207
-        'y': 72
+        x: 213
+        'y': 75
       something_went_wrong:
-        x: 299
-        'y': 422
+        x: 122
+        'y': 419
         navigate:
           6ec9b37e-fdb7-4fc1-a33c-2eb1a02be78e:
             targetId: e87f8329-f2ad-d5a2-046c-cc583d282bfe
             port: SUCCESS
-      append_module_args:
-        x: 774
-        'y': 70
       check_intentory_var:
-        x: 294
-        'y': 242
-      check_module_var:
-        x: 476
+        x: 303
+        'y': 240
+      check_tags:
+        x: 480
         'y': 239
       check_command_return_code:
-        x: 478
-        'y': 430
+        x: 304
+        'y': 426
         navigate:
           390a904f-acf3-8745-17a7-8e17774c9442:
             targetId: c03bc0a5-a290-a627-f56c-bc434ca4c253
             port: EQUALS
-      append_module:
-        x: 569
-        'y': 67
       check_extra_vars:
-        x: 865
-        'y': 239
+        x: 677
+        'y': 240
       ssh_command:
-        x: 667
-        'y': 423
+        x: 484
+        'y': 421
       append_inventory:
-        x: 382
-        'y': 71
-      check_module_args:
-        x: 667
-        'y': 237
+        x: 388
+        'y': 75
       contruct_ssh_command:
         x: 37
         'y': 74
+      append_tags:
+        x: 574
+        'y': 73
     results:
       SUCCESS:
         c03bc0a5-a290-a627-f56c-bc434ca4c253:
-          x: 476
-          'y': 607
+          x: 302
+          'y': 609
       FAILURE:
         e87f8329-f2ad-d5a2-046c-cc583d282bfe:
           x: 118
-          'y': 435
+          'y': 609
