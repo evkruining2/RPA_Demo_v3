@@ -1,3 +1,15 @@
+########################################################################################################################
+#!!
+#! @description: Run a playbook against one target server
+#!
+#! @input host: Ansible control node fqdn or ip address
+#! @input username: Ansible control node username. Example: root
+#! @input password: Ansible control node user password
+#! @input playbook: Playbook to run
+#! @input inventory: specify inventory host path or comma separated host list
+#! @input subset: further limit selected hosts to an additional pattern
+#!!#
+########################################################################################################################
 namespace: Ansible_CLI.Samples
 flow:
   name: Run_simple_playbook_on_one_target

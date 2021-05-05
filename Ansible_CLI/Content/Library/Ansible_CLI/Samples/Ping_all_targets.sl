@@ -1,3 +1,13 @@
+########################################################################################################################
+#!!
+#! @description: Send a ping command to all configured targets
+#!
+#! @input host: Ansible control node fqdn or ip address
+#! @input username: Ansible control node username. Example: root
+#! @input password: Ansible control node user password
+#! @input module: module name to execute
+#!!#
+########################################################################################################################
 namespace: Ansible_CLI.Samples
 flow:
   name: Ping_all_targets
