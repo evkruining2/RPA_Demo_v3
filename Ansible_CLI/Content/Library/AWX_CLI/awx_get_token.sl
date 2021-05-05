@@ -16,15 +16,13 @@ namespace: AWX_CLI
 flow:
   name: awx_get_token
   inputs:
-    - awx_cli_host: 192.168.2.123
-    - awx_cli_username: root
+    - awx_cli_host
+    - awx_cli_username
     - awx_cli_password:
-        default: opsware
         sensitive: true
-    - awx_host: 'http://192.168.2.123'
-    - awx_username: admin
+    - awx_host
+    - awx_username
     - awx_password:
-        default: opsware
         sensitive: true
   workflow:
     - ssh_command:
