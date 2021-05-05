@@ -2,6 +2,12 @@
 #!!
 #! @description: Get a job status, identified by the job ID
 #!
+#! @input awx_cli_host: Hostname of IP address of the host that has the AWX CLI tools installed. Example: awxcli.example.com
+#! @input awx_cli_username: Username of the awx cli host. Example: root
+#! @input awx_cli_password: Password for the (root) user on the awx cli host
+#! @input awx_host: AWX/Tower URL. Example: http://awx.example.com
+#! @input awx_username: AWX/Tower username. Example: admin
+#! @input awx_password: AWX/Tower user password
 #! @input job_id: Job ID
 #!!#
 ########################################################################################################################
