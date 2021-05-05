@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Get a list of inventories
+#! @description: Get a list of users from AWX
 #!
 #! @input awx_cli_host: Hostname of IP address of the host that has the AWX CLI tools installed. Example: awxcli.example.com
 #! @input awx_cli_username: Username of the awx cli host. Example: root
@@ -9,12 +9,12 @@
 #! @input awx_username: AWX/Tower username. Example: admin
 #! @input awx_password: AWX/Tower user password
 #!
-#! @output inventories: List of inventories
+#! @output userlist: List of users
 #!!#
 ########################################################################################################################
-namespace: AWX_CLI.Samples
+namespace: AWX_CLI
 flow:
-  name: list_inventories
+  name: list_users
   inputs:
     - awx_cli_host
     - awx_cli_username
@@ -42,26 +42,23 @@ flow:
           - token
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: list_inventories
-    - list_inventories:
+          - SUCCESS: awx_list_users
+    - awx_list_users:
         do:
           io.cloudslang.base.ssh.ssh_command:
             - host: '${awx_cli_host}'
-            - command: "${'awx --conf.host '+awx_host+' --conf.token '+token+' inventory list -f human --all'}"
+            - command: "${'awx --conf.host '+awx_host+' --conf.token '+token+' users list -f human'}"
             - username: '${awx_cli_username}'
             - password:
                 value: '${awx_cli_password}'
                 sensitive: true
-            - character_set: null
-            - use_shell: null
-            - remove_escape_sequences: 'true'
         publish:
-          - inventories: '${return_result}'
+          - users: '${return_result}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
-    - inventories: '${inventories}'
+    - userlist: '${users}'
   results:
     - FAILURE
     - SUCCESS
@@ -71,11 +68,11 @@ extensions:
       awx_get_token:
         x: 134
         'y': 121.5
-      list_inventories:
+      awx_list_users:
         x: 341
         'y': 124
         navigate:
-          747208f5-8f40-5c4f-72df-793a101c5143:
+          e5db8e79-8ae2-a475-8422-215001826006:
             targetId: ca0f2697-593d-a271-a16c-fb27d8c51410
             port: SUCCESS
     results:

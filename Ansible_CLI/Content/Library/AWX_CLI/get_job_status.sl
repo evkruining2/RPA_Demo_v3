@@ -11,7 +11,7 @@
 #! @input job_id: Job ID
 #!!#
 ########################################################################################################################
-namespace: AWX_CLI.Samples
+namespace: AWX_CLI
 flow:
   name: get_job_status
   inputs:

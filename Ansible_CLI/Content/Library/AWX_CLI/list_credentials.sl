@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Get a list of job templates
+#! @description: Get a list of credential stores
 #!
 #! @input awx_cli_host: Hostname of IP address of the host that has the AWX CLI tools installed. Example: awxcli.example.com
 #! @input awx_cli_username: Username of the awx cli host. Example: root
@@ -9,12 +9,12 @@
 #! @input awx_username: AWX/Tower username. Example: admin
 #! @input awx_password: AWX/Tower user password
 #!
-#! @output job_templates: List of job templates
+#! @output credentials: List of credential stores
 #!!#
 ########################################################################################################################
-namespace: AWX_CLI.Samples
+namespace: AWX_CLI
 flow:
-  name: list_job_templates
+  name: list_credentials
   inputs:
     - awx_cli_host
     - awx_cli_username
@@ -42,12 +42,12 @@ flow:
           - token
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: list_job_templates
-    - list_job_templates:
+          - SUCCESS: list_credentials
+    - list_credentials:
         do:
           io.cloudslang.base.ssh.ssh_command:
             - host: '${awx_cli_host}'
-            - command: "${'awx --conf.host '+awx_host+' --conf.token '+token+' job_templates list -f human --all'}"
+            - command: "${'awx --conf.host '+awx_host+' --conf.token '+token+' credentials list -f human --all'}"
             - username: '${awx_cli_username}'
             - password:
                 value: '${awx_cli_password}'
@@ -56,12 +56,12 @@ flow:
             - use_shell: null
             - remove_escape_sequences: 'true'
         publish:
-          - job_templates: '${return_result}'
+          - credentials: '${return_result}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
-    - job_templates: '${job_templates}'
+    - credentials: '${credentials}'
   results:
     - FAILURE
     - SUCCESS
@@ -71,7 +71,7 @@ extensions:
       awx_get_token:
         x: 134
         'y': 121.5
-      list_job_templates:
+      list_credentials:
         x: 341
         'y': 124
         navigate:

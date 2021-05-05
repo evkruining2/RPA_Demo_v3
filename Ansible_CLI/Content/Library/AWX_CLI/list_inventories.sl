@@ -1,6 +1,6 @@
 ########################################################################################################################
 #!!
-#! @description: Get a list of credential stores
+#! @description: Get a list of inventories
 #!
 #! @input awx_cli_host: Hostname of IP address of the host that has the AWX CLI tools installed. Example: awxcli.example.com
 #! @input awx_cli_username: Username of the awx cli host. Example: root
@@ -9,12 +9,12 @@
 #! @input awx_username: AWX/Tower username. Example: admin
 #! @input awx_password: AWX/Tower user password
 #!
-#! @output credentials: List of credential stores
+#! @output inventories: List of inventories
 #!!#
 ########################################################################################################################
-namespace: AWX_CLI.Samples
+namespace: AWX_CLI
 flow:
-  name: list_credentials
+  name: list_inventories
   inputs:
     - awx_cli_host
     - awx_cli_username
@@ -42,12 +42,12 @@ flow:
           - token
         navigate:
           - FAILURE: on_failure
-          - SUCCESS: list_credentials
-    - list_credentials:
+          - SUCCESS: list_inventories
+    - list_inventories:
         do:
           io.cloudslang.base.ssh.ssh_command:
             - host: '${awx_cli_host}'
-            - command: "${'awx --conf.host '+awx_host+' --conf.token '+token+' credentials list -f human --all'}"
+            - command: "${'awx --conf.host '+awx_host+' --conf.token '+token+' inventory list -f human --all'}"
             - username: '${awx_cli_username}'
             - password:
                 value: '${awx_cli_password}'
@@ -56,12 +56,12 @@ flow:
             - use_shell: null
             - remove_escape_sequences: 'true'
         publish:
-          - credentials: '${return_result}'
+          - inventories: '${return_result}'
         navigate:
           - SUCCESS: SUCCESS
           - FAILURE: on_failure
   outputs:
-    - credentials: '${credentials}'
+    - inventories: '${inventories}'
   results:
     - FAILURE
     - SUCCESS
@@ -71,7 +71,7 @@ extensions:
       awx_get_token:
         x: 134
         'y': 121.5
-      list_credentials:
+      list_inventories:
         x: 341
         'y': 124
         navigate:
