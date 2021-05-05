@@ -16,18 +16,16 @@ namespace: AWX_CLI.Samples
 flow:
   name: ping_targets
   inputs:
-    - awx_cli_host: 192.168.2.123
-    - awx_cli_username: root
+    - awx_cli_host
+    - awx_cli_username
     - awx_cli_password:
-        default: opsware
         sensitive: true
-    - awx_host: 'http://192.168.2.123'
-    - awx_username: admin
+    - awx_host
+    - awx_username
     - awx_password:
-        default: opsware
         sensitive: true
-    - inventory: '2'
-    - credential: '1'
+    - inventory
+    - credential
   workflow:
     - awx_get_token:
         do:

@@ -1,7 +1,6 @@
 ########################################################################################################################
 #!!
 #! @description: Get a list of inventories
-#!               
 #!
 #! @input awx_cli_host: Hostname of IP address of the host that has the AWX CLI tools installed. Example: awxcli.example.com
 #! @input awx_cli_username: Username of the awx cli host. Example: root
@@ -9,6 +8,7 @@
 #! @input awx_host: AWX/Tower URL. Example: http://awx.example.com
 #! @input awx_username: AWX/Tower username. Example: admin
 #! @input awx_password: AWX/Tower user password
+#!
 #! @output inventories: List of inventories
 #!!#
 ########################################################################################################################
@@ -16,15 +16,13 @@ namespace: AWX_CLI.Samples
 flow:
   name: list_inventories
   inputs:
-    - awx_cli_host: 192.168.2.123
-    - awx_cli_username: root
+    - awx_cli_host
+    - awx_cli_username
     - awx_cli_password:
-        default: opsware
         sensitive: true
-    - awx_host: 'http://192.168.2.123'
-    - awx_username: admin
+    - awx_host
+    - awx_username
     - awx_password:
-        default: opsware
         sensitive: true
   workflow:
     - awx_get_token:
