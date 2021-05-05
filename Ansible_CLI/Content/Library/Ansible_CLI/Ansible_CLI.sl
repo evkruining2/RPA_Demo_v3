@@ -1,11 +1,17 @@
 ########################################################################################################################
 #!!
+#! @description: Run ad-hoc Ansible commands using the Ansible cli over ssh
+#!
+#! @input ansible_host: Ansible control node fqdn or ip address
+#! @input ansible_username: Ansible control node username. Example: root
+#! @input ansible_password: Ansible control node user password
 #! @input pattern: host pattern
 #! @input inventory: specify inventory host path or comma separated host list
 #! @input subset: further limit selected hosts to an additional pattern
 #! @input ansible_module: module name to execute (default=command)
 #! @input module_arguments: module arguments
 #! @input extra_vars: set additional variables as key=value or YAML/JSON, if filename prepend with @
+#! @input additional_options: Add any additional options for the Ansible command. Example: -v for extra verbose output
 #!!#
 ########################################################################################################################
 namespace: Ansible_CLI
@@ -27,6 +33,9 @@ flow:
     - module_arguments:
         required: false
     - extra_vars:
+        required: false
+    - additional_options:
+        default: '-vv'
         required: false
   workflow:
     - contruct_ssh_command:
@@ -142,13 +151,29 @@ flow:
           io.cloudslang.base.utils.is_null:
             - variable: '${extra_vars}'
         navigate:
-          - IS_NULL: ssh_command
+          - IS_NULL: check_additional_options
           - IS_NOT_NULL: append_extra_vars
     - append_extra_vars:
         do:
           io.cloudslang.base.strings.append:
             - origin_string: '${ssh_command}'
             - text: "${' -e \"'+extra_vars+'\"'}"
+        publish:
+          - ssh_command: '${new_string}'
+        navigate:
+          - SUCCESS: check_additional_options
+    - check_additional_options:
+        do:
+          io.cloudslang.base.utils.is_null:
+            - variable: '${additional_options}'
+        navigate:
+          - IS_NULL: ssh_command
+          - IS_NOT_NULL: append_additional_options
+    - append_additional_options:
+        do:
+          io.cloudslang.base.strings.append:
+            - origin_string: '${ssh_command}'
+            - text: "${' '+additional_options+' '}"
         publish:
           - ssh_command: '${new_string}'
         navigate:
@@ -163,8 +188,8 @@ extensions:
   graph:
     steps:
       append_extra_vars:
-        x: 864
-        'y': 428
+        x: 960
+        'y': 76
       check_subset_var:
         x: 118
         'y': 242
@@ -172,8 +197,8 @@ extensions:
         x: 207
         'y': 72
       something_went_wrong:
-        x: 299
-        'y': 422
+        x: 478
+        'y': 423
         navigate:
           6ec9b37e-fdb7-4fc1-a33c-2eb1a02be78e:
             targetId: e87f8329-f2ad-d5a2-046c-cc583d282bfe
@@ -187,9 +212,12 @@ extensions:
       check_module_var:
         x: 476
         'y': 239
+      append_additional_options:
+        x: 1041
+        'y': 422
       check_command_return_code:
-        x: 478
-        'y': 430
+        x: 674
+        'y': 424
         navigate:
           390a904f-acf3-8745-17a7-8e17774c9442:
             targetId: c03bc0a5-a290-a627-f56c-bc434ca4c253
@@ -201,7 +229,7 @@ extensions:
         x: 865
         'y': 239
       ssh_command:
-        x: 667
+        x: 868
         'y': 423
       append_inventory:
         x: 382
@@ -212,12 +240,15 @@ extensions:
       contruct_ssh_command:
         x: 37
         'y': 74
+      check_additional_options:
+        x: 1042
+        'y': 237
     results:
       SUCCESS:
         c03bc0a5-a290-a627-f56c-bc434ca4c253:
-          x: 476
-          'y': 607
+          x: 676
+          'y': 597
       FAILURE:
         e87f8329-f2ad-d5a2-046c-cc583d282bfe:
-          x: 118
-          'y': 435
+          x: 475
+          'y': 598
